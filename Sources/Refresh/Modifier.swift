@@ -63,7 +63,10 @@ extension Refresh.Modifier: ViewModifier {
         update.progress = max(0, (bounds.maxY) / bounds.height)
         
         if update.refresh != item.refreshing {
-            update.refresh = item.refreshing
+            withAnimation {
+                update.refresh = item.refreshing
+            }
+        
             
             if !item.refreshing {
                 id += 1
@@ -72,13 +75,15 @@ extension Refresh.Modifier: ViewModifier {
                 }
             }
         } else {
-            update.refresh = update.refresh || (headerPreviousProgress > 1 && update.progress < headerPreviousProgress && update.progress >= 1)
+            withAnimation {
+                update.refresh = update.refresh || (headerPreviousProgress > 1 && update.progress < headerPreviousProgress && update.progress >= 1)
+            }
+            
         }
         
-        headerUpdate = update
-        
-        withAnimation(.easeInOut) {
 
+        withAnimation(.easeInOut) {
+            headerUpdate = update
             headerPadding = headerUpdate.refresh ? 0 : -max(rowHeight, bounds.height)
         }
         headerPreviousProgress = update.progress
