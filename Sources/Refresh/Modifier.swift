@@ -76,7 +76,11 @@ extension Refresh.Modifier: ViewModifier {
         }
         
         headerUpdate = update
-        headerPadding = headerUpdate.refresh ? 0 : -max(rowHeight, bounds.height)
+        
+        withAnimation(.easeInOut) {
+
+            headerPadding = headerUpdate.refresh ? 0 : -max(rowHeight, bounds.height)
+        }
         headerPreviousProgress = update.progress
     }
     

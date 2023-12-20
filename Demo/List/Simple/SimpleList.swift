@@ -70,8 +70,11 @@ struct SimpleList: View {
     func reload() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.items = SimpleList.generateItems(count: 20)
-            self.headerRefreshing = false
-            self.noMore = false
+            withAnimation {
+                self.headerRefreshing = false
+                self.noMore = false
+            }
+
         }
     }
     

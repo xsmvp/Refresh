@@ -33,12 +33,16 @@ extension Refresh.Header: View {
     public var body: some View {
         if update.refresh, !refreshing, update.progress > 1.01 {
             DispatchQueue.main.async {
-                self.refreshing = true
+                withAnimation {
+                    self.refreshing = true
+                }
+                
                 self.action()
             }
         }
         
         return Group {
+      
             if update.enable {
                 VStack(alignment: .center, spacing: 0) {
                     Spacer()
@@ -54,6 +58,7 @@ extension Refresh.Header: View {
         .anchorPreference(key: Refresh.HeaderAnchorKey.self, value: .bounds) {
             [.init(bounds: $0, refreshing: self.refreshing)]
         }
+
     }
     
     var opacity: Double {
