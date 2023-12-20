@@ -50,6 +50,7 @@ extension Refresh.Header: View {
                         .opacity(opacity)
                 }
                 .frame(maxWidth: .infinity)
+                .opacity(update.progress)
             } else {
                 EmptyView()
             }
